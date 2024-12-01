@@ -6,7 +6,11 @@
 pre-commit:
     parallel: true
     commands:
-        lint:
-            run: bun run lint
         format:
             run: bun run format
+        markdown-lint:
+            glob: "*.md"
+            run: bunx alex .
+        biome-lint:
+            glob: "*.{js,ts}"
+            run: bunx biome line --write {staged_files}
