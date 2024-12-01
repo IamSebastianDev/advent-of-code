@@ -1,11 +1,19 @@
 {
   "name": "@iasd/aoc",
-  "module": "index.ts",
+  "module": "./src/index.ts",
   "type": "module",
   "devDependencies": {
     "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
+  },
+  "scripts": {
+    "dev": "bun ./src/index.ts"
+  },
+  "dependencies": {
+    "@types/prompts": "^2.4.9",
+    "kolorist": "^1.8.0",
+    "prompts": "^2.4.2"
   }
 }
