@@ -39,12 +39,12 @@ for (const day of range(1, 24)) {
 
 		switch (runner.solved) {
 			case 1:
-				lines[0].push(gray(yellow('*')));
+				lines[0].push(yellow(bold('*')));
 				lines[1].push(gray(bold('*')));
 				break;
 			case 2:
-				lines[0].push(gray(yellow('*')));
-				lines[1].push(gray(yellow('*')));
+				lines[0].push(yellow(bold('*')));
+				lines[1].push(yellow(bold('*')));
 				break;
 			default:
 				lines[0].push(gray(bold('*')));
