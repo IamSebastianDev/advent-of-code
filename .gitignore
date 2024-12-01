@@ -173,3 +173,6 @@ dist
 
 # Finder (MacOS) folder config
 .DS_Store
+
+# AOC specific files (input should not be committed to source control)
+inputs

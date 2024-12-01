@@ -39,18 +39,17 @@ export abstract class Run {
     }
 
     async run() {
-        // Run reporter
         console.clear();
         console.log(bold(formatForAdvent(`Solution for AOC: [${this.year}]:[${this.day}]`)));
         console.log("");
         console.log(bold("Solution 1:"));
-        console.log(this.getSolutionOne(await this.getFileContent(1)));
+        console.log(await this.getSolutionOne(await this.getFileContent(1)));
         console.log("");
         console.log(bold("Solution 2:"));
-        console.log(this.getSolutionTwo(await this.getFileContent(2)));
+        console.log(await this.getSolutionTwo(await this.getFileContent(2)));
     }
 
     // To be implement per day
-    abstract getSolutionOne(file: string): string;
-    abstract getSolutionTwo(file: string): string;
+    abstract getSolutionOne(file: string): Promise<string> | string;
+    abstract getSolutionTwo(file: string): Promise<string> | string;
 }
