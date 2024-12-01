@@ -3,22 +3,28 @@ import { getDistance } from "../core/numbers/get-distance";
 import { Run } from "../core/run";
 
 export default class extends Run {
-    getSolutionOne(file: string): string {
+    private processFile(file: string) {
         // we need to split and map the input
         // into two different arrays, that can then
         // be sorted and evaluated
+        const lines = getLines(file);
         const leftNumbers: number[] = [];
         const rightNumbers: number[] = [];
 
-        // split the file into lines
-        getLines(file).forEach((line) => {
+        lines.forEach((line) => {
             const [left, right] = line.split("   ");
             leftNumbers.push(parseInt(left));
             rightNumbers.push(parseInt(right));
         });
 
-        const leftSorted = leftNumbers.sort();
-        const rightSorted = rightNumbers.sort();
+        return [leftNumbers, rightNumbers];
+    }
+
+    getSolutionOne(file: string): string {
+        const [left, right] = this.processFile(file);
+
+        const leftSorted = left.sort();
+        const rightSorted = right.sort();
         const distances: number[] = [];
 
         for (let i = 0; i < leftSorted.length; i++) {
@@ -29,6 +35,16 @@ export default class extends Run {
     }
 
     getSolutionTwo(file: string): string {
-        return "file";
+        const [left, right] = this.processFile(file);
+
+        // Create a map of the number of times the
+        // left list numbers appear in the right list
+        const map = new Map<number, number>(
+            left.map((number) => {
+                return [number, (right.filter((right) => right === number) ?? []).length];
+            })
+        );
+
+        return [...map.entries()].reduce((acc, [num, cur]) => acc + num * cur, 0).toString();
     }
 }
