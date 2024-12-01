@@ -1,3 +1,4 @@
+import { bold, yellow } from "kolorist";
 import { readdirSync } from "node:fs";
 import { readdir } from "node:fs/promises";
 import { join } from "node:path";
@@ -25,7 +26,14 @@ const { year, day } = await prompts([
         type: "select",
         message: "Select day to run",
         choices: (prev: string) => {
-            const days = readdirSync(join(import.meta.dir, prev)).filter((file) => file !== "inputs");
+            const content = readdirSync(join(import.meta.dir, prev));
+            if (!content.includes("inputs")) {
+                console.log(bold(yellow(`WARNING: No input directory found for ${prev}`)));
+                return null;
+            }
+
+            // Construct the days
+            const days = content.filter((file) => file !== "inputs");
 
             if (days.length === 0) {
                 return null;
@@ -43,11 +51,11 @@ const { year, day } = await prompts([
 
 // Check if both year and day are supplied
 if (!year || !day) {
-    throw new Error(`No runner specified`);
+    console.log(bold(yellow(`WARNING: Could not resolve correct runner. Either missing year, day or inputs.`)));
     process.exit(1);
 }
 
 // Otherwise, we fetch the file and execute it
-console.log({ year, day });
-const runner: new (...args: any[]) => Run = await import(join(import.meta.dir, year, day)).then((file) => file.default);
-new runner(year, day).run();
+const exp: new (...args: any[]) => Run = await import(join(import.meta.dir, year, day)).then((file) => file.default);
+const runner = new exp(year, day);
+await runner.run();

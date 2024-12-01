@@ -1,5 +1,5 @@
-import { bold } from "kolorist";
-import { readFile } from "node:fs/promises";
+import { bold, yellow } from "kolorist";
+import { exists, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { formatForAdvent } from "./format/for-advent";
 
@@ -10,14 +10,32 @@ export abstract class Run {
     constructor(year: string, day: string) {
         this.year = year;
         this.day = day.replace(".ts", "").padStart(2, "0");
+
+        // check if all input files exist
+        this.assertInputFiles();
     }
-    abstract getSolutionOne(file: string): string;
-    abstract getSolutionTwo(file: string): string;
 
-    async getFile(solution: number) {
-        const fileName = join(process.cwd(), "src", this.year, "inputs", this.day, `input.${solution}.txt`);
+    private async assertInputFiles() {
+        await Promise.all(
+            [1, 2].map(async (solution) => {
+                const file = this.getFileNameForSolution(solution);
+                if (!(await exists(file))) {
+                    console.log(bold(yellow(`WARNING: Missing input file for solution ${solution}`)));
+                }
+            })
+        );
+    }
 
-        return await readFile(fileName, "utf-8");
+    private getFileNameForSolution(solution: number) {
+        return join(process.cwd(), "src", this.year, "inputs", this.day, `input.${solution}.txt`);
+    }
+
+    private async getFileContent(solution: number) {
+        try {
+            return await readFile(this.getFileNameForSolution(solution), "utf-8");
+        } catch (e) {
+            throw new Error(`No input file found.`);
+        }
     }
 
     async run() {
@@ -26,9 +44,13 @@ export abstract class Run {
         console.log(bold(formatForAdvent(`Solution for AOC: [${this.year}]:[${this.day}]`)));
         console.log("");
         console.log(bold("Solution 1:"));
-        console.log(this.getSolutionOne(await this.getFile(1)));
+        console.log(this.getSolutionOne(await this.getFileContent(1)));
         console.log("");
         console.log(bold("Solution 2:"));
-        console.log(this.getSolutionTwo(await this.getFile(2)));
+        console.log(this.getSolutionTwo(await this.getFileContent(2)));
     }
+
+    // To be implement per day
+    abstract getSolutionOne(file: string): string;
+    abstract getSolutionTwo(file: string): string;
 }
