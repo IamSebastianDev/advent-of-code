@@ -175,4 +175,5 @@ dist
 .DS_Store
 
 # AOC specific files (input should not be committed to source control)
-inputs
+inputs/*
+!inputs/.gitkeep
