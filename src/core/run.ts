@@ -40,7 +40,7 @@ export abstract class Run {
 
 	async run() {
 		console.clear();
-		console.log(bold(formatForAdvent(`Solution for AOC: [${this.year}]:[${this.day}]`)), '\n');
+		console.log(bold(formatForAdvent(`Solution for AOC: [${this.year}]:[${this.day}] 🎄`)), '\n');
 		console.log(bold('Solution 1:'));
 		console.log(await this.getSolutionOne(await this.getFileContent(1)), '\n');
 		console.log(bold('Solution 2:'));
@@ -50,4 +50,7 @@ export abstract class Run {
 	// To be implement per day
 	abstract getSolutionOne(file: string): Promise<string> | string;
 	abstract getSolutionTwo(file: string): Promise<string> | string;
+
+	// Number to set solved
+	abstract solved: number;
 }

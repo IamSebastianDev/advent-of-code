@@ -17,7 +17,8 @@
 	"scripts": {
 		"lint": "bunx biome lint --write",
 		"format": "bunx biome format --write",
-		"solve": "bun ./src/index.ts"
+		"solve": "bun ./src/index.ts",
+		"summary": "bun ./src/statistics.ts"
 	},
 	"dependencies": {
 		"kolorist": "^1.8.0",

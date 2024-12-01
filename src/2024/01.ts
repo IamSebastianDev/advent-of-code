@@ -3,6 +3,8 @@ import { getDistance } from '../core/numbers/get-distance';
 import { Run } from '../core/run';
 
 export default class extends Run {
+	solved = 2;
+
 	private processFile(file: string) {
 		// we need to split and map the input
 		// into two different arrays, that can then
