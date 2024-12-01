@@ -7,28 +7,28 @@ export default class extends Run {
         // we need to split and map the input
         // into two different arrays, that can then
         // be sorted and evaluated
-        const firstNumbers: number[] = [];
-        const secondNumbers: number[] = [];
+        const leftNumbers: number[] = [];
+        const rightNumbers: number[] = [];
 
         // split the file into lines
         getLines(file).forEach((line) => {
-            const [first, second] = line.split("   ");
-            firstNumbers.push(parseInt(first));
-            secondNumbers.push(parseInt(second));
+            const [left, right] = line.split("   ");
+            leftNumbers.push(parseInt(left));
+            rightNumbers.push(parseInt(right));
         });
 
-        const firstSorted = firstNumbers.sort();
-        const secondSorted = secondNumbers.sort();
+        const leftSorted = leftNumbers.sort();
+        const rightSorted = rightNumbers.sort();
         const distances: number[] = [];
 
-        for (let i = 0; i < firstSorted.length; i++) {
-            distances.push(getDistance(firstSorted[i], secondSorted[i]));
+        for (let i = 0; i < leftSorted.length; i++) {
+            distances.push(getDistance(leftSorted[i], rightSorted[i]));
         }
 
         return distances.reduce((acc, cur) => acc + cur, 0).toString();
     }
 
     getSolutionTwo(file: string): string {
-        return file;
+        return "file";
     }
 }

@@ -17,7 +17,7 @@ export abstract class Run {
 
     private async assertInputFiles() {
         await Promise.all(
-            [1, 2].map(async (solution) => {
+            [1].map(async (solution) => {
                 const file = this.getFileNameForSolution(solution);
                 if (!(await exists(file))) {
                     console.log(bold(yellow(`WARNING: Missing input file for solution ${solution}`)));
@@ -27,7 +27,7 @@ export abstract class Run {
     }
 
     private getFileNameForSolution(solution: number) {
-        return join(process.cwd(), "src", this.year, "inputs", this.day, `input.${solution}.txt`);
+        return join(process.cwd(), "src", this.year, "inputs", this.day, `input.txt`);
     }
 
     private async getFileContent(solution: number) {
