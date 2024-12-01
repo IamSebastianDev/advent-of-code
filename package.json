@@ -4,8 +4,10 @@
 	"type": "module",
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
-		"@types/prompts": "^2.4.9",
+		"@commitlint/cli": "^19.6.0",
+		"@commitlint/config-conventional": "^19.6.0",
 		"@types/bun": "latest",
+		"@types/prompts": "^2.4.9",
 		"alex": "^11.0.1",
 		"lefthook": "^1.8.4"
 	},

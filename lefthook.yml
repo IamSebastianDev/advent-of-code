@@ -13,4 +13,8 @@ pre-commit:
             run: bunx alex .
         biome-lint:
             glob: "*.{js,ts}"
-            run: bunx biome line --write {staged_files}
+            run: bunx biome lint --write {staged_files}
+commit-msg:
+    commands:
+        lint:
+            run: bunx commitlint --edit
