@@ -41,7 +41,7 @@ const { year, day } = await prompts([
 
 			return [
 				...days.map((day) => ({
-					title: day,
+					title: `Day ${day.replace('.ts', '')}`,
 					value: day,
 				})),
 			];
