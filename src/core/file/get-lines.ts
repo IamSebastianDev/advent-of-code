@@ -1,1 +1,1 @@
-export const getLines = (content: string) => content.split("\n");
+export const getLines = (content: string) => content.split('\n');

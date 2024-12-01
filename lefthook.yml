@@ -1,0 +1,12 @@
+# EXAMPLE USAGE:
+#
+#   Refer for explanation to following link:
+#   https://github.com/evilmartians/lefthook/blob/master/docs/configuration.md
+#
+pre-commit:
+    parallel: true
+    commands:
+        lint:
+            run: bun run lint
+        format:
+            run: bun run format

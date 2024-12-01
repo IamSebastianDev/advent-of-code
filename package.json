@@ -1,19 +1,24 @@
 {
-    "name": "@iasd/aoc",
-    "module": "./src/index.ts",
-    "type": "module",
-    "devDependencies": {
-        "@types/bun": "latest"
-    },
-    "peerDependencies": {
-        "typescript": "^5.0.0"
-    },
-    "scripts": {
-        "solve": "bun ./src/index.ts"
-    },
-    "dependencies": {
-        "@types/prompts": "^2.4.9",
-        "kolorist": "^1.8.0",
-        "prompts": "^2.4.2"
-    }
+	"name": "@iasd/aoc",
+	"module": "./src/index.ts",
+	"type": "module",
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"@types/prompts": "^2.4.9",
+		"@types/bun": "latest",
+		"alex": "^11.0.1",
+		"lefthook": "^1.8.4"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	},
+	"scripts": {
+		"lint": "bunx alex . && bunx biome lint --write",
+		"format": "bunx biome format --write",
+		"solve": "bun ./src/index.ts"
+	},
+	"dependencies": {
+		"kolorist": "^1.8.0",
+		"prompts": "^2.4.2"
+	}
 }
