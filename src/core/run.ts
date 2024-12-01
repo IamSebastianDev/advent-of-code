@@ -40,7 +40,7 @@ export abstract class Run {
 
 	async run() {
 		console.clear();
-		console.log(bold(formatForAdvent(`Solution for AOC: [${this.year}]:[${this.day}] 🎄`)), '\n');
+		console.log(bold(formatForAdvent(`Solution for AOC: [${this.year}]:[${this.day}]`)), '\n');
 		console.log(bold('Solution 1:'));
 		console.log(await this.getSolutionOne(await this.getFileContent(1)), '\n');
 		console.log(bold('Solution 2:'));

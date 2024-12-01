@@ -61,6 +61,6 @@ for (const day of range(1, 24)) {
 
 // Log the lines
 console.clear();
-console.log(bold(formatForAdvent(`Solution for AOC: [${year}]:[Overview] 🎄`)), '\n');
+console.log(bold(formatForAdvent(`Solution for AOC: [${year}]:[Overview]`)), '\n');
 console.log(lines[0].join(''));
 console.log(lines[1].join(''));
