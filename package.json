@@ -15,6 +15,7 @@
 		"typescript": "^5.0.0"
 	},
 	"scripts": {
+		"lint": "bun run lint:typescript && bun run lint:markdown",
 		"lint:typescript": "bunx biome lint --write",
 		"lint:markdown": "bunx alex",
 		"format": "bunx biome format --write",
