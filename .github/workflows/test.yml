@@ -1,0 +1,30 @@
+name: Run Tests
+
+on:
+  push:
+    branches:
+      - main  # Trigger tests on pushes to the main branch
+  pull_request:  # Trigger tests for all pull requests
+
+jobs:
+  test:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu environment for the job
+
+    steps:
+      # Step 1: Checkout the repository code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Install the Bun runtime for running scripts
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: 'latest'  
+
+      # Step 3: Install project dependencies
+      - name: Install dependencies
+        run: bun install 
+
+      # Step 4: Run the test suite with coverage
+      - name: Run Tests with Coverage
+        run: bun run test  

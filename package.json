@@ -19,6 +19,7 @@
 		"lint:typescript": "bunx biome lint --write",
 		"lint:markdown": "bunx alex",
 		"format": "bunx biome format --write",
+		"test": "bun test --coverage",
 		"solve": "bun ./src/index.ts",
 		"summary": "bun ./src/statistics.ts"
 	},

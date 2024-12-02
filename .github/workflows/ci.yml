@@ -1,0 +1,34 @@
+name: Lint Codebase
+
+on:
+  push:
+    branches:
+      - main  # Trigger linting on pushes to the main branch
+  pull_request:  # Trigger linting for all pull requests
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu environment for the job
+
+    steps:
+      # Step 1: Checkout the repository code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Install the Bun runtime for running scripts
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: 'latest' 
+
+      # Step 3: Install project dependencies
+      - name: Install dependencies
+        run: bun install  
+
+      # Step 4: Run TypeScript linting using Biome
+      - name: Run TypeScript linting
+        run: bun run lint:typescript 
+
+      # Step 5: Run Markdown linting using Alex
+      - name: Run Markdown linting
+        run: bun run lint:markdown  
