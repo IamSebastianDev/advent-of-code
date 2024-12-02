@@ -40,10 +40,14 @@ const { year, day } = await prompts([
 			}
 
 			return [
-				...days.map((day) => ({
-					title: `Day ${day.replace('.ts', '')}`,
-					value: day,
-				})),
+				...days
+					// sort and reverse should ensure that the current day is up top
+					.sort()
+					.reverse()
+					.map((day) => ({
+						title: `Day ${day.replace('.ts', '')}`,
+						value: day,
+					})),
 			];
 		},
 	},
@@ -56,8 +60,14 @@ if (!year || !day) {
 }
 
 // Otherwise, we fetch the file and execute it
-const Runner: new (...args: [string, string]) => Run = await import(join(import.meta.dir, year, day)).then(
-	(file) => file.default,
-);
+type RunCtor = new (...args: [year: string, day: string]) => Run;
+const Runner: RunCtor = await import(join(import.meta.dir, year, day)).then((file) => file.default);
+
+// Check if a runner exists
+if (!Runner) {
+	console.warn(yellow(bold('File has no export. Create a runner.')));
+	process.exit(1);
+}
+
 const runner = new Runner(year, day);
 await runner.run();
