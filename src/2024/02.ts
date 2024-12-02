@@ -1,5 +1,5 @@
-import { getLines } from '../core/file/get-lines';
-import { getDistance } from '../core/numbers/get-distance';
+import { Files } from '../core/files';
+import { Mathz } from '../core/numbers';
 import { Run } from '../core/run';
 
 export default class extends Run {
@@ -7,7 +7,7 @@ export default class extends Run {
 		// we need to split and map the input
 		// into two different arrays, that can then
 		// be sorted and evaluated
-		const lines = getLines(file);
+		const lines = Files.getLines(file);
 		return lines.map((line) => line.split(' ').map((entry) => Number.parseInt(entry)));
 	}
 
@@ -36,7 +36,7 @@ export default class extends Run {
 				break;
 			}
 
-			const distance = getDistance(start, current);
+			const distance = Mathz.getDistance(start, current);
 			if (distance < 1 || distance > 3) {
 				safe = false;
 				break;

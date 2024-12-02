@@ -9,7 +9,7 @@ import { join } from 'node:path';
 import prompts from 'prompts';
 import { filterForNumbers } from './core/filters/for-number';
 import { formatForAdvent } from './core/format/for-advent';
-import { range } from './core/numbers/range';
+import { Mathz } from './core/numbers';
 import type { Run } from './core/run';
 
 // To get started, we check for which year the statistics should be
@@ -31,7 +31,7 @@ const lines = [['Solved first: 	'], ['Solved second: 	']];
 
 // Now that we know for which year we need to scan, we can get the filename
 // for each day and check if a runner exists
-for (const day of range(1, 24)) {
+for (const day of Mathz.range(1, 24)) {
 	const path = join(import.meta.dir, year, `${day}`.padStart(2, '0'));
 	try {
 		const Runner: new (...args: [string, string]) => Run = await import(path).then((file) => file.default);

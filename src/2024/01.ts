@@ -1,5 +1,5 @@
-import { getLines } from '../core/file/get-lines';
-import { getDistance } from '../core/numbers/get-distance';
+import { Files } from '../core/files';
+import { Mathz } from '../core/numbers';
 import { Run } from '../core/run';
 
 export default class extends Run {
@@ -7,7 +7,7 @@ export default class extends Run {
 		// we need to split and map the input
 		// into two different arrays, that can then
 		// be sorted and evaluated
-		const lines = getLines(file);
+		const lines = Files.getLines(file);
 		const leftNumbers: number[] = [];
 		const rightNumbers: number[] = [];
 
@@ -29,7 +29,7 @@ export default class extends Run {
 		const distances: number[] = [];
 
 		for (let i = 0; i < leftSorted.length; i++) {
-			distances.push(getDistance(leftSorted[i], rightSorted[i]));
+			distances.push(Mathz.getDistance(leftSorted[i], rightSorted[i]));
 		}
 
 		return distances.reduce((acc, cur) => acc + cur, 0).toString();
