@@ -66,8 +66,32 @@ export default class extends Run {
 		return safeSequences.toString();
 	}
 
+	private checkDampenedSequences(seq: number[]) {
+		let hasSafeSequence = false;
+		for (let i = 0; i < seq.length; i++) {
+			const dampened = [...seq].toSpliced(i, 1);
+			if (this.checkSequence(dampened)) {
+				hasSafeSequence = true;
+			}
+		}
+		return hasSafeSequence;
+	}
+
 	solvedPuzzleTwo = false;
 	getSolutionTwo(file: string): string {
-		return '';
+		// We get the file and split all the input numbers into
+		// Sequences of numbers, that we can then process
+		const sequences = this.processFile(file);
+
+		let safeSequences = 0;
+		// We want to iterate all sequences, and depending on
+		// if the sequence is deemed safe or not, increase the counter
+		for (const sequence of sequences) {
+			if (this.checkDampenedSequences(sequence)) {
+				safeSequences++;
+			}
+		}
+
+		return safeSequences.toString();
 	}
 }
