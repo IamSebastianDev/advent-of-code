@@ -15,7 +15,8 @@
 		"typescript": "^5.0.0"
 	},
 	"scripts": {
-		"lint": "bunx biome lint --write",
+		"lint:typescript": "bunx biome lint --write",
+		"lint:markdown": "bunx alex",
 		"format": "bunx biome format --write",
 		"solve": "bun ./src/index.ts",
 		"summary": "bun ./src/statistics.ts"

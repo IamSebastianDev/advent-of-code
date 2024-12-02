@@ -8,12 +8,12 @@ pre-commit:
     commands:
         format:
             run: bun run format
-        markdown-lint:
+        lint-markdown:
             glob: "*.md"
-            run: bunx alex .
-        biome-lint:
+            run: bun run lint:markdown {staged_files}
+        lint-typescript:
             glob: "*.{js,ts}"
-            run: bunx biome lint --write {staged_files}
+            run: bun run lint:typescript {staged_files}
 commit-msg:
     commands:
         lint:
