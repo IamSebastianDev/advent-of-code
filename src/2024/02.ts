@@ -77,7 +77,7 @@ export default class extends Run {
 		return hasSafeSequence;
 	}
 
-	solvedPuzzleTwo = false;
+	solvedPuzzleTwo = true;
 	getSolutionTwo(file: string): string {
 		// We get the file and split all the input numbers into
 		// Sequences of numbers, that we can then process
