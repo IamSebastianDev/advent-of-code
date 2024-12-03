@@ -1,14 +1,14 @@
-import { Files } from '../core/files';
 import { Run } from '../core/run';
 
 export default class extends Run {
-	private processFile(file: string) {
-		const lines = Files.getLines(file);
-	}
-
-	solvedPuzzleOne = false;
+	solvedPuzzleOne = true;
 	getSolutionOne(file: string): string {
-		return '';
+		const regexp = /mul\(\d+\,\d+\)/gim;
+		return [...file.matchAll(regexp)]
+			.map(([match]) => [...match.matchAll(/\d+/gim)].map(([match]) => Number.parseInt(match)))
+			.map(([first, second]) => first * second)
+			.reduce((acc, cur) => acc + cur, 0)
+			.toString();
 	}
 
 	solvedPuzzleTwo = false;
