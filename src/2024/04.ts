@@ -19,12 +19,16 @@ export default class extends Run {
 		});
 	}
 
-	private checkNeighbors([line, char]: [number, number], iterator: string[][]) {
+	private checkNeighbors(
+		patterns: Set<(Point & { letter: string })[]>,
+		[line, char]: [number, number],
+		iterator: string[][],
+	) {
 		// We want to check the pattern to be true for each position in the iterator
 		// that is marked as an X, which is is the start of the word. As we always
 		// have that as known position, we can navigate from there.
 		let matches = 0;
-		for (const pattern of this.patterns) {
+		for (const pattern of patterns) {
 			if (this.matchPattern(pattern, [line, char], iterator)) {
 				matches += 1;
 			}
@@ -33,7 +37,7 @@ export default class extends Run {
 		return matches;
 	}
 
-	private patterns = new Set<(Point & { letter: 'M' | 'A' | 'S' })[]>([
+	private standardPatterns = new Set<(Point & { letter: 'M' | 'A' | 'S' })[]>([
 		[
 			// Diagonal Left Top
 			{
@@ -165,7 +169,7 @@ export default class extends Run {
 		for (let line = 0; line < map.length; line++) {
 			for (let char = 0; char < map[line].length; char++) {
 				if (map[line][char] === 'X') {
-					matches += this.checkNeighbors([line, char], map);
+					matches += this.checkNeighbors(this.standardPatterns, [line, char], map);
 				}
 			}
 		}
@@ -173,8 +177,107 @@ export default class extends Run {
 		return matches.toString();
 	}
 
-	solvedPuzzleTwo = false;
+	private xmasPattern = new Set<(Point & { letter: 'S' | 'M' })[]>([
+		// M.S
+		// .A.
+		// M.S
+		[
+			{
+				...point(-1, -1),
+				letter: 'M',
+			},
+			{
+				...point(1, -1),
+				letter: 'S',
+			},
+			{
+				...point(-1, 1),
+				letter: 'M',
+			},
+			{
+				...point(1, 1),
+				letter: 'S',
+			},
+		],
+		// S.M
+		// .A.
+		// S.M
+		[
+			{
+				...point(-1, -1),
+				letter: 'S',
+			},
+			{
+				...point(1, -1),
+				letter: 'M',
+			},
+			{
+				...point(-1, 1),
+				letter: 'S',
+			},
+			{
+				...point(1, 1),
+				letter: 'M',
+			},
+		],
+		// M.M
+		// .A.
+		// S.S
+		[
+			{
+				...point(-1, -1),
+				letter: 'M',
+			},
+			{
+				...point(1, -1),
+				letter: 'M',
+			},
+			{
+				...point(-1, 1),
+				letter: 'S',
+			},
+			{
+				...point(1, 1),
+				letter: 'S',
+			},
+		],
+		// S.S
+		// .A.
+		// M.M
+		[
+			{
+				...point(-1, -1),
+				letter: 'S',
+			},
+			{
+				...point(1, -1),
+				letter: 'S',
+			},
+			{
+				...point(-1, 1),
+				letter: 'M',
+			},
+			{
+				...point(1, 1),
+				letter: 'M',
+			},
+		],
+	]);
+
+	solvedPuzzleTwo = true;
 	getSolutionTwo(file: string): string {
-		return '';
+		const lines = this.processFile(file);
+		const map = lines.map((line) => line.split(''));
+
+		let matches = 0;
+		for (let line = 0; line < map.length; line++) {
+			for (let char = 0; char < map[line].length; char++) {
+				if (map[line][char] === 'A') {
+					matches += this.checkNeighbors(this.xmasPattern, [line, char], map);
+				}
+			}
+		}
+
+		return matches.toString();
 	}
 }
